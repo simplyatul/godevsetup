@@ -1,2 +1,1 @@
-# devsetupdemo
-Setting up the local k8s development environment
+# Setting up the local k8s development environment
