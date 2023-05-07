@@ -1,0 +1,7 @@
+go mod init
+go mod tidy
+go build -o ./godevsetup
+docker build -t godevsetup:1.0 . => TAG=1.0
+docker build -t godevsetup . 	 => TAG=latest
+docker run -dit --name goserver -p 8080:8080 godevsetup
+
