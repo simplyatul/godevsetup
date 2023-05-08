@@ -1,13 +1,22 @@
-kind: Pod
-apiVersion: v1
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: godevsetup
   labels:
     app: godevsetup
+  name: godevsetup
 spec:
-  containers:
-  - name: godevsetup
-    image: localhost:5000/godevsetup:1.1
+  replicas: 3
+  selector:
+    matchLabels:
+      app: godevsetup
+  template:
+    metadata:
+      labels:
+        app: godevsetup
+    spec:
+      containers:
+      - image: localhost:5000/godevsetup:1.1
+        name: godevsetup
 ---
 kind: Service
 apiVersion: v1
