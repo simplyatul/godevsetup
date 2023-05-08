@@ -1,0 +1,39 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: godevsetup
+  labels:
+    app: godevsetup
+spec:
+  containers:
+  - name: godevsetup
+    image: localhost:5000/godevsetup:1.1
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: godevsetup
+spec:
+  selector:
+    app: godevsetup
+  ports:
+  # Port used by the Docker image
+  - port: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: godevsetup-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: godevsetup
+            port:
+              number: 8080
+---
+
