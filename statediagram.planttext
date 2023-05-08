@@ -1,0 +1,20 @@
+@startuml
+
+skin rose
+
+Title App development cycle using local k8s deployment
+[*] --> CodeApp
+State "Code/Enhance the App" as CodeApp
+State Conatainerize
+State "Push Image to Local Registry" as LocalReg
+State "Deploy on Local k8s cluster" as K8s
+State "Verify the Functionality" as Verify
+
+CodeApp -right-> Conatainerize
+Conatainerize --> LocalReg
+LocalReg -down-> K8s
+K8s -left-> Verify
+Verify -left-> CodeApp
+
+@enduml
+
