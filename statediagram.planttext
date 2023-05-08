@@ -2,7 +2,7 @@
 
 skin rose
 
-Title App development cycle using local k8s deployment
+Title App development cycle using local k8s cluster
 [*] --> CodeApp
 State "Code/Enhance the App" as CodeApp
 State Conatainerize
