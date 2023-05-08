@@ -5,3 +5,25 @@ docker build -t godevsetup:1.0 . => TAG=1.0
 docker build -t godevsetup . 	 => TAG=latest
 docker run -dit --name goserver -p 8080:8080 godevsetup
 
+# Build the docker image from v1.1 tag
+docker build -t godevsetup:1.1 https://github.com/simplyatul/godevsetup.git#v1.1
+docker run -dit --name goserver -p 8080:8080 godevsetup:1.1
+
+docker build -t localhost:5000/godevsetup:1.1 https://github.com/simplyatul/godevsetup.git#v1.1
+docker push localhost:5000/godevsetup:1.1
+
+curl -X GET localhost:5000/v2/_catalog
+{"repositories":["godevsetup"]}
+
+curl -X GET localhost:5000/v2/godevsetup/tags/list
+{"name":"godevsetup","tags":["1.1"]}
+
+
+git tag v1.1
+git push origin v1.1
+
+
+./local-docker-registry.sh
+
+kind create cluster --config ./kind-local-k8s-cluster.yaml --name local-dev
+kind delete cluster --name local-dev
