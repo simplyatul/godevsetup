@@ -1,27 +1,3 @@
-go mod init
-go mod tidy
-go build -o ./godevsetup
-docker build -t godevsetup:1.0 . => TAG=1.0
-docker build -t godevsetup . 	 => TAG=latest
-docker run -dit --name godevsetup -p 8080:8080 godevsetup
-
-# Build the docker image from v1.1 tag
-docker build -t godevsetup:1.1 https://github.com/simplyatul/godevsetup.git#v1.1
-docker run -dit --name godevsetup -p 8080:8080 godevsetup:1.1
-
-docker build -t localhost:5000/godevsetup:1.1 https://github.com/simplyatul/godevsetup.git#v1.1
-docker push localhost:5000/godevsetup:1.1
-
-curl -X GET localhost:5000/v2/_catalog
-{"repositories":["godevsetup"]}
-
-curl -X GET localhost:5000/v2/godevsetup/tags/list
-{"name":"godevsetup","tags":["1.1"]}
-
-
-git tag v1.1
-git push origin v1.1
-
 
 ./local-docker-registry.sh
 
@@ -29,12 +5,38 @@ kind create cluster --config ./kind-local-k8s-cluster.yaml --name local-dev
 docker network connect kind local-docker-registry
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
 
-kind delete cluster --name local-dev
+
+docker build -t localhost:5000/godevsetup:latest .
+docker run --rm --name godevsetup -p 8080:8080 localhost:5000/godevsetup:latest
+
+docker push localhost:5000/godevsetup:latest
+
+curl -X GET localhost:5000/v2/godevsetup/tags/list
+{"name":"godevsetup","tags":["latest"]}
+
 
 kubectl apply -f service.yaml
 kubectl delete -f service.yaml
 
 
+Backup Cmds....
+
+go mod init
+go mod tidy
+go build -o ./godevsetup
+docker build -t godevsetup:1.0 . => TAG=1.0
+docker build -t godevsetup . 	 => TAG=latest
+docker run -dit --name godevsetup -p 8080:8080 godevsetup
+
+curl -X GET localhost:5000/v2/_catalog
+{"repositories":["godevsetup"]}
+
+kind delete cluster --name local-dev
+
 kubectl create deploy godevsetup --image=localhost:5000/godevsetup:1.1 --replicas=5 --dry-run=client -o yaml
 
 
+git tag v1.4
+git push origin v1.4
+
+docker build -t localhost:5000/godevsetup:latest https://github.com/simplyatul/godevsetup.git#v1.3

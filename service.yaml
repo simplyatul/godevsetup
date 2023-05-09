@@ -15,7 +15,7 @@ spec:
         app: godevsetup
     spec:
       containers:
-      - image: localhost:5000/godevsetup:1.1
+      - image: localhost:5000/godevsetup:latest
         name: godevsetup
 ---
 kind: Service
