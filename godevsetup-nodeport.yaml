@@ -1,0 +1,13 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: godevsetup-nodeport
+spec:
+  selector:
+    app: godevsetup
+  type: NodePort
+  ports:
+    - port: 9090
+      targetPort: 8080
+      nodePort: 30123

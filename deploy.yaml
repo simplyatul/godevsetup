@@ -1,0 +1,21 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: godevsetup
+  name: godevsetup
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: godevsetup
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: godevsetup
+    spec:
+      containers:
+        - image: godevsetup:1.0
+          name: godevsetup

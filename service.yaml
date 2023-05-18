@@ -26,7 +26,6 @@ spec:
   selector:
     app: godevsetup
   ports:
-  # Port used by the Docker image
   - port: 8080
 ---
 apiVersion: networking.k8s.io/v1

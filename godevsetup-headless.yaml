@@ -1,0 +1,12 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: godevsetup-headless
+spec:
+  selector:
+    app: godevsetup
+  clusterIP: None
+  ports:
+    - port: 9090
+      targetPort: 8080

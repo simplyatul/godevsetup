@@ -1,0 +1,11 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: godevsetup-srv-def
+spec:
+  selector:
+    app: godevsetup
+  ports:
+    - port: 9090
+      targetPort: 8080
