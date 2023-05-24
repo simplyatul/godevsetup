@@ -21,6 +21,8 @@ kubectl delete -f service.yaml
 
 Backup Cmds....
 
+kind load docker-image godevsetup:1.0 --name local-dev
+
 go mod init
 go mod tidy
 go build -o ./godevsetup
