@@ -1,0 +1,23 @@
+@startuml
+skinparam backgroundColor PaleGoldenRod
+skinparam State {
+  BackgroundColor #Green
+  FontColor #FloralWhile
+}
+
+Title App Development Using Local K8s Cluster
+[*] --> Step_1
+State "Step 1" as Step_1 : App Development
+State "Step 2" as Step_2 : Containerize The App
+State "Step 3" as Step_3 : Push Image Into Your Cluster
+State "Step 4" as Step_4 : Deploy On Local K8s Cluster
+State "Step 5" as Step_5 : Verify The Functionally
+
+Step_1 -right-> Step_2
+Step_2 --> Step_3
+Step_3 -down-> Step_4
+Step_4 -left-> Step_5
+Step_5 -left-> Step_1
+
+@enduml
+
